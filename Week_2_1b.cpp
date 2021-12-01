@@ -17,7 +17,7 @@ int main()
         }
          i++;
     }
-    printf("The total characters of the given string= %d",chars);
+    printf("Aantal karakters in de sting is:  %d",chars);
 
     return 0;
 } 
