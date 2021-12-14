@@ -65,17 +65,13 @@ void setup() {
 void loop() {
   for (int counter = 0; counter < 10; counter++)
   {
-    if (counter == 10 )
+    if (counter == 10)
     {
-      for (auto & led : leds)
-      {
-        vTaskSuspend( led.taskh );
-      }
-      delay(3000);
-      for (auto & led : leds)
-      {
-        vTaskResume(led.taskh);
-      } 
+    vTaskSuspend(led.taskh);
+    }
+    delay(3000);
+    {
+    vTaskResume(led.taskh);
     }
   }
 }
