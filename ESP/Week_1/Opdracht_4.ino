@@ -67,14 +67,14 @@ void loop() {
   {
     if (counter == 10 )
     {
-      for ( auto& led : leds)
+      for (auto & led : leds)
       {
         vTaskSuspend( led.taskh );
       }
       delay(3000);
-      for ( auto& led : leds)
+      for (auto & led : leds)
       {
-        vTaskResume( led.taskh );
+        vTaskResume(led.taskh);
       } 
     }
   }
