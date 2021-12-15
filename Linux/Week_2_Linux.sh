@@ -1,5 +1,5 @@
 #!/bin/bash
-#Om dit scipt te runnen moet file.txt, dir script en cd in Home/Documents staan
+#Om dit scipt te runnen moet file.txt, dit script en cd in Home/Documents staan
 #cd Documents
 
 mkdir $HOME/photo #maak home/photo aan
@@ -34,14 +34,14 @@ do
 		echo "Correct directory has been made and file has been copied"
 	fi
 
-	og=$(sudo md5sum "$HOME"/Documents/file.txt | cut -d " " -f1)
-	copy=$(sudo md5sum "$HOME"/photo/"$direct"/file.txt | cut -d " " -f1)
+	og=$(sudo md5sum "$HOME"/Documents/file.txt | cut -d " " -f1) #checksum van de orginele file.txt in HOME/Documents
+	copy=$(sudo md5sum "$HOME"/photo/"$direct"/file.txt | cut -d " " -f1) #checksum van de kopie van file.txt in de HOME/photo
 
-	if [ "$og" = "$copy" ]
-	then
-		rm "$HOME"/Documents/file.txt
+	if [ "$og" = "$copy" ] #de 2 checksums vergelijken
+	then #True
+		rm "$HOME"/Documents/file.txt #Verwijder file.txt in HOME/Documents als de 2 checksums gelijk zijn
 		echo "Copy is succesfull, removed de original file"
-	else
-		echo "Copy not succesfull"	
+	else #False
+		echo "Copy not succesfull" 	
 	fi
 done
