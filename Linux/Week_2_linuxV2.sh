@@ -1,10 +1,11 @@
 #!/bin/bash
 
-#cd Documents #.jpg's en dit script moeten in deze directory staan
+mkdir $HOME/photo #maak home/photo aan
+echo -n "Choose your directory with photos: "
+read dir
+cd "$HOME"/"$dir"
 
-#mkdir $HOME/photo #maak home/photo aan
-
-echo -n "Kies uit: 'Month' of 'Week':  " 
+echo -n "Choose: 'Month' of 'Week':  " 
 read m_or_w 
 echo "$morw"
 
