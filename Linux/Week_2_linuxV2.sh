@@ -7,7 +7,7 @@ cd "$HOME"/"$dir"
 
 echo -n "Choose: 'Month' of 'Week':  " 
 read m_or_w 
-echo "$morw"
+
 
 for f in *.jpg
 do
