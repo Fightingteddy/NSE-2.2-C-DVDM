@@ -42,7 +42,7 @@ do
 		copy_month=$(sudo md5sum "$HOME"/photo/Month/"$monthnum"/"$f" | cut -d " " -f1)
 		if [ "$og_month" = "$copy_month" ]
 		then
-			#rm "$HOME"/Documents/"$f"
+			rm "$HOME"/Documents/"$f"
 			echo "Copy is succesfull, removed de original file"
 		else
 			echo "Copy not succesfull"
@@ -81,7 +81,7 @@ do
 
 		if [ "$og_week" = "$copy_week" ]
 		then
-			#rm "$HOME"/Documents/"$f"
+			rm "$HOME"/Documents/"$f"
 			echo "Copy is succesfull, removed de original file"
 		else
 			echo "Copy not succesfull"
