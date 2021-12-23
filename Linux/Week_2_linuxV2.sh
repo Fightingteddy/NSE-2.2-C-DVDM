@@ -1,6 +1,9 @@
 #!/bin/bash
 
 mkdir $HOME/photo #maak home/photo aan
+mkdir %HOME/photo/Week
+mkdir %HOME/photo/Month
+
 echo -n "Choose your directory with photos: "
 read dir
 cd "$HOME"/"$dir"
