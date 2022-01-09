@@ -14,7 +14,7 @@ static QueueHandle_t queue;
 static const int reset_press = -998;
 const char* ssid       = "P2C8400_nomap";
 const char* password   = "zxcvbnmasdfghjkl12345";
-char timestamp[20];
+char timestamp[20]; //variabele waar de tijd in komt te staan
 
 
 void WiFi_connect(){
@@ -110,16 +110,16 @@ state &= ~(1 << -event);
 }
 
 if ( state == enable ) { //beide knopjes ingedrukt
-digitalWrite(GPIO_LED,HIGH);
+digitalWrite(GPIO_LED,HIGH); //ledje gaat aan
 
 if( xQueueSendToBack(queuehandle, printLocalTime(), 0) != pdPASS)  //queue is vol
 {
   xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen, in &timestamp gezet en verwijderd.
   printf("Time trown away %s\r\n" , timestamp); //print voorste waarde van hierboven uit
 } 
-else {
+else { //led gaat uit als een knopje niet meer wordt ingedrukt
 // Deactivate press
-digitalWrite(GPIO_LED,LOW);
+digitalWrite(GPIO_LED,LOW); //ledje gaat uit
 }
 }
 }
@@ -141,7 +141,7 @@ char let[20];
 delay(2000); // Allow USB to connect
 queue = xQueueCreate(2,sizeof(int));
 assert(queue);
-queuehandle = xQueueCreate(3, sizeof(let) ); //queue wordt aangemaakt, queue is normaal 200 lang
+queuehandle = xQueueCreate(3, sizeof(let) ); //queuehanle wordt een queue van 3 lang, normaal 200 lang
 
 
 
