@@ -9,7 +9,7 @@
 //
 
 
-static QueueHandle_t queuehandle;
+static QueueHandle_t queuehandle; //Queuehande queuehandle wordt aangemaakt
 static QueueHandle_t queue;
 static const int reset_press = -998;
 const char* ssid       = "P2C8400_nomap";
@@ -114,16 +114,16 @@ digitalWrite(GPIO_LED,HIGH);
 
 if( xQueueSendToBack(queuehandle, printLocalTime(), 0) != pdPASS)  //queue is vol
 {
-  xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen en verwijderd
-  printf("Time trown away %s\r\n" , timestamp); //print de waarde die verwijderd is
-   xQueueSendToBack(queuehandle, printLocalTime(), 0);
+  xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen, in &timestamp gezet en verwijderd.
+  printf("Time trown away %s\r\n" , timestamp); //print voorste waarde van hierboven uit
+} 
+else {
+// Deactivate press
+digitalWrite(GPIO_LED,LOW);
 }
-
-
 }
 }
 }
-
 
 //
 // Initialization:
@@ -137,11 +137,13 @@ TaskHandle_t h;
 WiFi_connect();
 char let[20];
 
-queuehandle = xQueueCreate(3, sizeof(let) ); //queue wordt aangemaakt, queue is normaal 200 lang
 
 delay(2000); // Allow USB to connect
 queue = xQueueCreate(2,sizeof(int));
 assert(queue);
+queuehandle = xQueueCreate(3, sizeof(let) ); //queue wordt aangemaakt, queue is normaal 200 lang
+
+
 
 pinMode(GPIO_LED,OUTPUT);
 pinMode(GPIO_BUTTONL,INPUT_PULLUP);
@@ -160,7 +162,6 @@ app_cpu // CPU
 );
 assert(rc == pdPASS);
 assert(h);
-
 
 rc = xTaskCreatePinnedToCore(
 debounce_task,
@@ -185,10 +186,10 @@ app_cpu // CPU
 );
 assert(rc == pdPASS);
 assert(h);
-
 }
 
 
-void loop() { 
+// Not used:
+void loop() {
 vTaskDelete(nullptr);
 }
