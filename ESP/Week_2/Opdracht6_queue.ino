@@ -112,11 +112,11 @@ state &= ~(1 << -event);
 if ( state == enable ) { //beide knopjes ingedrukt
 digitalWrite(GPIO_LED,HIGH); //ledje gaat aan
 
-if( xQueueSendToBack(queuehandle, printLocalTime(), 0) != pdPASS)  //queue is vol
-{
-  xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen, in &timestamp gezet en verwijderd.
-  printf("Time trown away %s\r\n" , timestamp); //print voorste waarde van hierboven uit
-} 
+    if(xQueueSendToBack(queuehandle, printLocalTime(), 0) != pdPASS)  //queue is vol
+      {
+        xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen, in &timestamp gezet en verwijderd.
+        printf("Time trown away %s\r\n" , timestamp); //print voorste waarde van hierboven uit
+      } 
 else { //led gaat uit als een knopje niet meer wordt ingedrukt
 // Deactivate press
 digitalWrite(GPIO_LED,LOW); //ledje gaat uit
