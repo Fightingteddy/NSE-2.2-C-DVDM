@@ -117,10 +117,9 @@ digitalWrite(GPIO_LED,HIGH); //ledje gaat aan
         xQueueReceive(queuehandle, &timestamp, 0); //voorste waarde wordt gelezen, in &timestamp gezet en verwijderd.
         printf("Time trown away %s\r\n" , timestamp); //print voorste waarde van hierboven uit
       } 
-else { //led gaat uit als een knopje niet meer wordt ingedrukt
+} else { //led gaat uit als een knopje niet meer wordt ingedrukt
 // Deactivate press
 digitalWrite(GPIO_LED,LOW); //ledje gaat uit
-}
 }
 }
 }
