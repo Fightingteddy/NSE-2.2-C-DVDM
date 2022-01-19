@@ -1,3 +1,4 @@
+//Priorities
 #include <WiFi.h>
 #include <time.h>  
 // LED is active high
@@ -12,8 +13,8 @@
 static QueueHandle_t queuehandle; //Queuehande queuehandle wordt aangemaakt
 static QueueHandle_t queue;
 static const int reset_press = -998;
-const char* ssid       = "P2C8400_nomap";
-const char* password   = "zxcvbnmasdfghjkl12345";
+const char* ssid       = "1+8T_DVDM";
+const char* password   = "david2002";
 char timestamp[20]; //variabele waar de tijd in komt te staan
 
 
@@ -26,6 +27,14 @@ void WiFi_connect(){
   printf(" CONNECTED\r\n");
 }
 
+static void SetTime(void * xx){
+  printf("Time set\r\n");
+  sntp_setoperatingmode(SNTP_OPMODE_POLL);
+  sntp_setservername(0, "pool.ntp.org");
+  sntp_init();
+  setenv("TZ", "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00", 1);
+  tzset();
+  vTaskDelete(NULL);}
 
 char* printLocalTime()
 {
@@ -40,24 +49,13 @@ char* printLocalTime()
  return time_buf;
 }
 
-static void SetTime(void * xx)
-{
-  printf("Time set\r\n");
-  // init time protocol sync
-  sntp_setoperatingmode(SNTP_OPMODE_POLL);
-  sntp_setservername(0, "pool.ntp.org");
-  sntp_init();
-  setenv("TZ", "CET-1CEST-2,M3.5.0/02:00:00,M10.5.0/03:00:00", 1);
-  tzset();
-  //vTaskSuspend(NULL);
-  vTaskDelete(NULL);
-}
 
 static void debounce_task(void *argp) {
 unsigned button_gpio = *(unsigned*)argp;
 uint32_t level, state = 0;
 uint32_t mask = 0x7FFFFFFF;
 int event, last = -999;
+
 
 
 for (;;) {
@@ -148,8 +146,8 @@ static int right = GPIO_BUTTONR;
 BaseType_t rc;
 TaskHandle_t h;
 
-TaskHandle_t f;
-BaseType_t bt;
+TaskHandle_t f; //tashhandle f aanmaken
+BaseType_t tsk; //basetype tsk aanmaken
 WiFi_connect();
 char let[20];
 
