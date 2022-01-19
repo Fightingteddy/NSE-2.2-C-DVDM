@@ -7,7 +7,7 @@
 #define GPIO_BUTTONR 19
 #define DEBOUNCE_TIME 30 // the debounce time in millisecond, increase this time ifit still chatters
 //Declare SemaphoreHandle
-static SemaphoreHandle_t stoptask;
+static SemaphoreHandle_t stoptask; //aanmaken semaphorehandle
 
 
 // Button Debouncing task:
@@ -57,7 +57,7 @@ taskYIELD();
 // function blinks GPIO_led_sem in given rate(ms) for 10 times
 void blink_sem_led(int rate){
 //set Semaphore and when done relase the Semaphore
-  if( xSemaphoreTake(stoptask,(TickType_t)10)  == pdTRUE) //check of de semaphore beschikbaar is, zoniet dan 
+  if( xSemaphoreTake(stoptask,(TickType_t)0)  == pdTRUE) //verkrijgen van de samephore en checken of die verkregen is 
   {
     int count = 0;
     printf("BLINK_SEM_LED, rate: %d\r\n",rate );
@@ -86,9 +86,9 @@ BaseType_t rc;
 delay(2000); // Allow USB to connect
 
 //////////////////// create here binary Semaphore and release the Semaphore
-   stoptask = xSemaphoreCreateBinary(); //maak binaire semaphore
+   stoptask = xSemaphoreCreateBinary(); //maak binaire semaphore, de semaphorehandle wordt de binaire semaphore
 //////////////////// free binarys semaphore........
-  xSemaphoreGive(stoptask); 
+  xSemaphoreGive(stoptask); //
 
   
 pinMode(GPIO_LED_SEM,OUTPUT);
