@@ -40,7 +40,7 @@ char* printLocalTime()
  return time_buf;
 }
 
-static void set_time(void * xx)
+static void SetTime(void * xx)
 {
   printf("Time set\r\n");
   // init time protocol sync
@@ -165,8 +165,8 @@ pinMode(GPIO_LED,OUTPUT);
 pinMode(GPIO_BUTTONL,INPUT_PULLUP);
 pinMode(GPIO_BUTTONR,INPUT_PULLUP);
 
-bt = xTaskCreatePinnedToCore(set_time,"time set",2048,&f,3,&f,app_cpu);
-assert(bt == pdPASS);
+tsk = xTaskCreatePinnedToCore(SetTime,"time set",2048,&f,3,&f,app_cpu); //task aanmaken voor de SetTiime functie
+assert(tsk == pdPASS);
 assert(f);
 
 rc = xTaskCreatePinnedToCore(
