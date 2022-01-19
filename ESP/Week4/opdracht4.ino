@@ -13,7 +13,7 @@ ESP32Timer ITimer1(1);
 #define DEBOUNCE_TIME                 30
 #define LED_PIN                       4
 #define BUTTON1_PIN                   19
-#define BUTTON2_PIN                   15
+#define BUTTON2_PIN                   15 
 
 volatile unsigned long  lastDebounceTime_button1  = 0;
 volatile unsigned long  lastDebounceTime_button2  = 0;
@@ -29,7 +29,7 @@ volatile bool           LampState    = false;
 
 void IRAM_ATTR Falling_button1();
 void IRAM_ATTR Rising_button1();
-void IRAM_ATTR Falling_button2();
+void IRAM_ATTR Falling_button2(); //falling en rising button voor knop 2 aanmaken
 void IRAM_ATTR Rising_button2();
 void IRAM_ATTR ButtonCheck();
 void IRAM_ATTR ToggleLED();
@@ -59,7 +59,7 @@ void IRAM_ATTR Falling_button1() {
 //create herer Rising and Falling ISR for button2
 
 
-void IRAM_ATTR Rising_button2() {
+void IRAM_ATTR Rising_button2() { //aanmaken rising button voor knop 2
   unsigned long currentTime  = millis();
   unsigned long TimeDiff;
 
@@ -71,7 +71,7 @@ void IRAM_ATTR Rising_button2() {
   }
 }
 
-void IRAM_ATTR Falling_button2() {
+void IRAM_ATTR Falling_button2() { //aanmaken falling button voor knop 2
   unsigned long currentTime  = millis();
 
   if ( !digitalRead(BUTTON2_PIN) && (currentTime > lastDebounceTime_button2 + DEBOUNCE_TIME)) {
